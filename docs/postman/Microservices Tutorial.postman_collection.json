@@ -1,0 +1,148 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Microservices Tutorial",
+		"_postman_id": "87fe17f5-8131-966d-7a97-9e677374d887",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RestFul Services",
+			"description": "",
+			"item": [
+				{
+					"name": "User",
+					"description": "",
+					"item": [
+						{
+							"name": "GetAllUsers",
+							"request": {
+								"url": "{{RootUrl}}/users",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Get Single User",
+							"request": {
+								"url": "{{RootUrl}}/users/1",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Add User",
+							"request": {
+								"url": "{{RootUrl}}/users",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Kelly\",\n    \"dateOfBirth\": \"1978-02-05T14:06:16.872+0000\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User",
+							"request": {
+								"url": "{{RootUrl}}/users/3",
+								"method": "DELETE",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Posts",
+					"description": "",
+					"item": [
+						{
+							"name": "GetPostById",
+							"request": {
+								"url": "{{RootUrl}}/users/post/1",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Add Posts",
+							"request": {
+								"url": "{{RootUrl}}/users/post",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": 3,\n    \"header\": \"trip to STL\",\n    \"body\": \"Nice time with family\",\n    \"active\": true\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Post",
+							"request": {
+								"url": "{{RootUrl}}/users/post/1",
+								"method": "DELETE",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Post By UserId",
+							"request": {
+								"url": "{{RootUrl}}/users/all-post/1",
+								"method": "DELETE",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllPostForUserId",
+							"request": {
+								"url": "{{RootUrl}}/users/all-post/1",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
