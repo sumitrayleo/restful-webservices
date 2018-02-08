@@ -1,0 +1,8 @@
+*.prefs
+.idea
+.mvn
+target/
+.DS_Store
+.project
+.classpath
+.settings
