@@ -1,15 +1,25 @@
 package com.tutorial.rest.webservices.restfulwebservices.test;
 
+import java.util.Locale;
+
+import org.jboss.logging.MDC;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
+    
+    @Autowired
+    MessageSource bundleMessageSource;
+    
+    private static final String HEADER_ACCEPT_LANGUAGE = "accept-language";
 
     @GetMapping(value="/test-message")
     public String testMessage() {
-        return "Hello Friends";
+        return bundleMessageSource.getMessage("message.test", null, new Locale(MDC.get(HEADER_ACCEPT_LANGUAGE).toString()));
     }
     
     @GetMapping(value="/test-message-bean")
