@@ -22,6 +22,10 @@ public class WebConfigurer extends WebMvcConfigurationSupport {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        
+        if (!registry.hasMappingForPattern("/browser/**")) {
+            registry.addResourceHandler("/browser/**").addResourceLocations("classpath:/META-INF/spring-data-rest/hal-browser/");
+        }
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
