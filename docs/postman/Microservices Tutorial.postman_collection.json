@@ -141,6 +141,52 @@
 						}
 					],
 					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Test",
+					"description": "",
+					"item": [
+						{
+							"name": "Test Messages",
+							"request": {
+								"url": "{{RootUrl}}/test-message",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "fr",
+										"description": ""
+									}
+								],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Test filtering",
+							"request": {
+								"url": "{{RootUrl}}/filtering",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Test filtering list",
+							"request": {
+								"url": "{{RootUrl}}/filtering-list",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
 				}
 			]
 		}
