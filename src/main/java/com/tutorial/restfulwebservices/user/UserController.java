@@ -3,6 +3,10 @@ package com.tutorial.restfulwebservices.user;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,24 +17,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-
 @RestController
 public class UserController {
+    
+    private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    UserDao userDao;
+    UserService userService;
 
     // findAllUsers
     @GetMapping(value = "/users")
     public List<User> findAllUsers() {
-        return userDao.findAllUsers();
+        List<User> userList = userService.findAllUsers();
+        log.info("The retrieved users are : " + userList);
+        return userList;
     }
 
     // addNewUsers
     @PostMapping(value = "/users")
     public ResponseEntity<User> addNewUser(@Valid @RequestBody User user) {
-        User savedUser = userDao.saveUser(user);
+        User savedUser = userService.saveUser(user);
 
         URI restUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
         return ResponseEntity.created(restUri).build();
@@ -39,11 +45,11 @@ public class UserController {
     // findUser 
     @GetMapping(value = "/users/{id}")
     public User findUser(@PathVariable int id) {
-        return userDao.findUser(id);
+        return userService.findUser(id);
     }
     
     @DeleteMapping(value = "/users/{id}")
     public User removeUser(@PathVariable int id) {
-        return userDao.removeUser(id);
+        return userService.removeUser(id);
     }
 }

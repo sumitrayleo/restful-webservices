@@ -5,10 +5,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDaoImpl implements UserDao{
+public class UserServiceImpl implements UserService{
+    
+    @Autowired
+    private UserDAOService userDAOService;
 
     private static List<User> users = new ArrayList<>(); 
     private static int counter = 3; 
@@ -21,7 +25,7 @@ public class UserDaoImpl implements UserDao{
     
     @Override
     public List<User> findAllUsers() {
-        return users;
+        return userDAOService.findAll();
     }
     
     @Override
