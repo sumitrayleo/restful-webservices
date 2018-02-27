@@ -10,6 +10,6 @@ public interface UserService {
     
     public User findUser(int id);
     
-    public User removeUser(int id);
+    public List<User> removeUser(int id);
 
 }

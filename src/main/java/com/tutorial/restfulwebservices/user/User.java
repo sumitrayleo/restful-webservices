@@ -29,9 +29,8 @@ public class User {
     public User() {
     }
 
-    public User(int id, String name, Date dateOfBirth) {
+    public User(String name, Date dateOfBirth) {
         super();
-        this.id = id;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
     }
@@ -62,9 +61,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", getId()=" + getId() + ", getName()="
-                        + getName() + ", getDateOfBirth()=" + getDateOfBirth() + ", getClass()=" + getClass() + ", hashCode()="
-                        + hashCode() + ", toString()=" + super.toString() + "]";
+        return "User [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + "]";
     }
 
 }

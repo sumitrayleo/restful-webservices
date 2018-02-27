@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,8 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 public class UserController {
     
-    private final static Logger log = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     UserService userService;
 
@@ -29,7 +25,6 @@ public class UserController {
     @GetMapping(value = "/users")
     public List<User> findAllUsers() {
         List<User> userList = userService.findAllUsers();
-        log.info("The retrieved users are : " + userList);
         return userList;
     }
 
@@ -49,7 +44,7 @@ public class UserController {
     }
     
     @DeleteMapping(value = "/users/{id}")
-    public User removeUser(@PathVariable int id) {
+    public List<User> removeUser(@PathVariable int id) {
         return userService.removeUser(id);
     }
 }
