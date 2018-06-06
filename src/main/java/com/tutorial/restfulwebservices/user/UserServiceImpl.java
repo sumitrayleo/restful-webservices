@@ -9,22 +9,22 @@ import org.springframework.stereotype.Component;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDAOService userDAOService;
+    private UserRepository userRepository;
 
     @Override
     public List<User> findAllUsers() {
-        return userDAOService.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public User saveUser(User user) {
-        return userDAOService.save(user);
+        return userRepository.save(user);
     }
 
     @Override
     public User findUser(int id) {
-        if (userDAOService.exists(id)) {
-            return userDAOService.findOne(id);
+        if (userRepository.exists(id)) {
+            return userRepository.findOne(id);
         }
         throw new UserNotFoundException("id: " + id + " is not found");
 
@@ -33,9 +33,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> removeUser(int id) {
         
-        if (userDAOService.exists(id)) {
-            userDAOService.delete(id);
-            return userDAOService.findAll();
+        if (userRepository.exists(id)) {
+            userRepository.delete(id);
+            return userRepository.findAll();
         }
         throw new UserNotFoundException("id: " + id + " is not found");
     }
