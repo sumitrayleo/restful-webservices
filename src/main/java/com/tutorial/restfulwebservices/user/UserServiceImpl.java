@@ -23,8 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser(int id) {
-        if (userRepository.exists(id)) {
-            return userRepository.findOne(id);
+        if (userRepository.existsById(id)) {
+            return userRepository.findById(id).get();
         }
         throw new UserNotFoundException("id: " + id + " is not found");
 
@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> removeUser(int id) {
         
-        if (userRepository.exists(id)) {
-            userRepository.delete(id);
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
             return userRepository.findAll();
         }
         throw new UserNotFoundException("id: " + id + " is not found");

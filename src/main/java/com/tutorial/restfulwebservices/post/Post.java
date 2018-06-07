@@ -1,24 +1,40 @@
 package com.tutorial.restfulwebservices.post;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tutorial.restfulwebservices.user.User;
+
+import io.swagger.annotations.ApiModel;
+
+@Entity
+@Table(name="post")
+@ApiModel(value="Posts for particular users")
 public class Post {
     
+    @Id
+    @GeneratedValue
     private int id;
-    private int userId;
-    private String header;
-    private String body;
-    private Boolean active;
+    private String description;
+    
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JsonIgnore
+    private User user;
     
     public Post() {
     }
 
-    public Post(int id, int userId, String header, String body, Boolean active) {
+    public Post(String description, User user) {
         super();
-        this.id = id;
-        this.userId = userId;
-        this.header = header;
-        this.body = body;
-        this.active = active;
+        this.description = description;
+        this.user = user;
     }
+
 
     public int getId() {
         return id;
@@ -28,37 +44,25 @@ public class Post {
         this.id = id;
     }
 
-    public String getHeader() {
-        return header;
+    public String getDescription() {
+        return description;
     }
 
-    public void setHeader(String header) {
-        this.header = header;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getBody() {
-        return body;
+    public User getUser() {
+        return user;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Boolean getActive() {
-        return active;
+    @Override
+    public String toString() {
+        return "Post [id=" + id + ", description=" + description + "]";
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    
 }

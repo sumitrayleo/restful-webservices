@@ -2,6 +2,7 @@ package com.tutorial.restfulwebservices.post;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,25 +14,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.tutorial.restfulwebservices.user.User;
+import com.tutorial.restfulwebservices.user.UserNotFoundException;
+import com.tutorial.restfulwebservices.user.UserRepository;
+
 @RestController
 public class PostController {
     
     @Autowired
-    protected PostDao postDao;
+    protected PostRepository postRepository;
     
-    @GetMapping(value = "/users/post/{postId}")
-    public Post findPostById(@PathVariable final int postId) {
-        return postDao.findPost(postId);
-    }
+    @Autowired
+    protected UserRepository userRepository;
     
-    @GetMapping(value = "/users/all-post/{userId}")
+    @GetMapping(value = "/users/{userId}/posts")
     public List<Post> findAllPostsByUserId(@PathVariable final int userId){
-        return postDao.findAllPostsByUserId(userId);
+        
+        final Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser == null) {
+            throw new UserNotFoundException("id: " + userId + " is not found");
+        }
+        
+        return optionalUser.get().getPosts();
     }
     
-    @PostMapping(value = "/users/post")
+    /*@PostMapping(value = "/users/post")
     public ResponseEntity<Post> savePosts(@RequestBody final Post post){
-        postDao.savePost(post);
+        postRepository.savePost(post);
         
         URI restUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}").buildAndExpand(post.getId()).toUri();
         return ResponseEntity.created(restUri).build();
@@ -40,12 +49,12 @@ public class PostController {
     
     @DeleteMapping(value = "/users/post/{postId}")
     public Post removePostById(@PathVariable final int postId) {
-        return postDao.removePost(postId);
+        return postRepository.removePost(postId);
     }
     
     @DeleteMapping(value = "/users/all-post/{userId}")
     public List<Post> removeAllPostsByUserId(@PathVariable final int userId) {
-        return postDao.removeAllPostsByUserId(userId);
-    }
+        return postRepository.removeAllPostsByUserId(userId);
+    }*/
     
 }
