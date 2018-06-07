@@ -1,6 +1,5 @@
 package com.tutorial.restfulwebservices.post;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,7 +21,7 @@ public class Post {
     private int id;
     private String description;
     
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JsonIgnore
     private User user;
     

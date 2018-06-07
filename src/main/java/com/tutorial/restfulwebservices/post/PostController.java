@@ -31,30 +31,41 @@ public class PostController {
     public List<Post> findAllPostsByUserId(@PathVariable final int userId){
         
         final Optional<User> optionalUser = userRepository.findById(userId);
-        if(optionalUser == null) {
+        if(!optionalUser.isPresent()) {
             throw new UserNotFoundException("id: " + userId + " is not found");
         }
         
         return optionalUser.get().getPosts();
     }
     
-    /*@PostMapping(value = "/users/post")
-    public ResponseEntity<Post> savePosts(@RequestBody final Post post){
-        postRepository.savePost(post);
+    @PostMapping(value = "/users/{userId}/posts")
+    public ResponseEntity<Post> savePosts(@PathVariable final int userId, @RequestBody Post post){
+        final Optional<User> optionalUser = userRepository.findById(userId);
+        
+        if(!optionalUser.isPresent()) {
+            throw new UserNotFoundException("id: " + userId + " is not found");
+        }
+        
+        post.setUser(optionalUser.get());
+        postRepository.save(post);
         
         URI restUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}").buildAndExpand(post.getId()).toUri();
         return ResponseEntity.created(restUri).build();
         
     }
     
-    @DeleteMapping(value = "/users/post/{postId}")
-    public Post removePostById(@PathVariable final int postId) {
-        return postRepository.removePost(postId);
+    
+    @DeleteMapping(value = "/users/{userId}/posts/{postId}")
+    public void removeAllPostByUserId(@PathVariable final int userId, @PathVariable final int postId) {
+        
+        postRepository.deleteById(postId);
     }
     
-    @DeleteMapping(value = "/users/all-post/{userId}")
-    public List<Post> removeAllPostsByUserId(@PathVariable final int userId) {
-        return postRepository.removeAllPostsByUserId(userId);
-    }*/
+    @DeleteMapping(value = "/users/{userId}/posts")
+    public void removeAllPostByUserId(@PathVariable final int userId) {
+        
+        postRepository.deleteAllPostByUserId(userId);
+    }
+    
     
 }
